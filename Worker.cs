@@ -1,23 +1,36 @@
-namespace study_reminder_bot;
+using StudyReminderBot.Services;
 
-public class Worker : BackgroundService
+namespace StudyReminderBot
 {
-    private readonly ILogger<Worker> _logger;
-
-    public Worker(ILogger<Worker> logger)
+    public class Worker : BackgroundService
     {
-        _logger = logger;
-    }
+        private readonly ILogger<Worker> _logger;           // para registrar logs
+        private readonly NotificationService _notificationService; // serviço de notificações
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        while (!stoppingToken.IsCancellationRequested)
+        public Worker(ILogger<Worker> logger)
         {
-            if (_logger.IsEnabled(LogLevel.Information))
+            _logger = logger;
+            _notificationService = new NotificationService();
+        }
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            // fica rodando enquanto o bot estiver ativo
+            while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                var agora = DateTime.Now;
+
+                // envia os lembretes todo dia às 8h da manhã
+                if (agora.Hour == 8 && agora.Minute == 0)
+                {
+                    _logger.LogInformation("📚 Enviando lembretes da semana...");
+                    await _notificationService.EnviarLembretesSemanaAsync();
+                    _logger.LogInformation("✅ Lembretes enviados com sucesso!");
+                }
+
+                // aguarda 1 minuto antes de verificar novamente
+                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
             }
-            await Task.Delay(1000, stoppingToken);
         }
     }
 }
