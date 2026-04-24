@@ -1,4 +1,8 @@
-using study_reminder_bot;
+using StudyReminderBot;
+using DotNetEnv;
+
+// carrega as variáveis do arquivo .env
+Env.Load();
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();
