@@ -8,3 +8,4 @@ obj/
 # Visual Studio
 .vs/
 *.user
+.env
