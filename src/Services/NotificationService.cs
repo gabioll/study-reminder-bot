@@ -58,7 +58,8 @@ namespace StudyReminderBot.Services
                 mensagem += $"   Microfundamento: {atividade.Microfundamento}\n";
                 mensagem += $"   Pontuação: {atividade.Pontuacao}\n";
                 mensagem += $"   Data Limite: {atividade.DataLimite:dd/MM/yyyy}\n";
-                mensagem += $"   Tipo: {atividade.Tipo}\n\n";
+                mensagem += $"   Tipo: {atividade.Tipo}\n";
+                mensagem += $"   🔗 Link: {atividade.Link}\n\n"; // link da atividade
             }
 
             mensagem += "⚠️ Fique atento aos prazos!";
@@ -75,7 +76,8 @@ namespace StudyReminderBot.Services
                 mensagem += $"📌 *{atividade.Nome}*\n";
                 mensagem += $"   Microfundamento: {atividade.Microfundamento}\n";
                 mensagem += $"   Pontuação: {atividade.Pontuacao}\n";
-                mensagem += $"   Data Limite: {atividade.DataLimite:dd/MM/yyyy}\n\n";
+                mensagem += $"   Data Limite: {atividade.DataLimite:dd/MM/yyyy}\n";
+                mensagem += $"   🔗 Link: {atividade.Link}\n\n"; // link da atividade
             }
 
             mensagem += "⚠️ Fique atento aos prazos!";

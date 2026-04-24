@@ -34,7 +34,7 @@ namespace StudyReminderBot.Services
         // lê a aba Atividades e retorna uma lista de objetos Atividade
         public async Task<List<Atividade>> GetAtividadesAsync()
         {
-            var range = "Atividades!A2:F100";
+            var range = "Atividades!A2:G100"; // agora vai até a coluna G
             var request = _sheetsService.Spreadsheets.Values.Get(_spreadsheetId, range);
             var response = await request.ExecuteAsync();
             var rows = response.Values;
@@ -52,7 +52,8 @@ namespace StudyReminderBot.Services
                     Pontuacao = row.Count > 2 ? row[2].ToString() : "",
                     DataLimite = row.Count > 3 ? DateTime.Parse(row[3].ToString()) : DateTime.MinValue,
                     Tipo = row.Count > 4 ? row[4].ToString() : "",
-                    Enviado = row.Count > 5 ? row[5].ToString() : "Não"
+                    Link = row.Count > 5 ? row[5].ToString() : "",       // link da atividade
+                    Enviado = row.Count > 6 ? row[6].ToString() : "Não" // agora é coluna G
                 });
             }
 
